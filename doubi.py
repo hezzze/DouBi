@@ -76,12 +76,6 @@ class OpenChannel(webapp2.RequestHandler):
 				uuid = self.request.get("uid")
 				token = channel.create_channel(uuid)
 
-				# Question: some how for the 3rd I 
-				# have to set it to true
-				# even if it's set to true in 
-				# the ChannelConnected handler
-				# seems that in ChannelOpened handler
-				# a stale value is read
 				Channel(key=ndb.Key(Channel,uuid), token=token,used=True).put()
 
 			self.response.content_type="text/plain"
@@ -141,9 +135,12 @@ class AddMsg(webapp2.RequestHandler):
 
 
 
-class ChannelOpened(webapp2.RequestHandler):
-	def post(self):
-		send_json(get_msgs_json(query_msgs()))
+class InitApp(webapp2.RequestHandler):
+	def get(self):
+		res_json = get_msgs_json(query_msgs())
+		self.response.content_type = "text/json"
+		self.response.write(res_json)
+
 
 class ChannelDisconnected(webapp2.RequestHandler):
 
@@ -182,7 +179,7 @@ application = webapp2.WSGIApplication([
     ('/_ah/channel/disconnected/', ChannelDisconnected),
     ('/_ah/channel/connected/', ChannelConnected),
     ('/tasks/clean', Clean),
-    ('/opened', ChannelOpened),
+    ('/init_app', InitApp),
     ('/open', OpenChannel)
     ], debug=True)
 

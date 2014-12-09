@@ -4,8 +4,10 @@
 (function() {
     var onOpened = function() {
         $.ajax({
-            type: "POST",
-            url: "/opened"
+            type: "GET",
+            url: "/init_app"
+        }).done(function(data) {
+            console.log(data);
         });
     };
 
