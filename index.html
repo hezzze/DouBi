@@ -1,0 +1,31 @@
+<html>
+<head>
+	<script src='/_ah/channel/jsapi'></script>
+	<script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+
+	<p>{{my_email}}</p>
+
+	<div><textarea id="content" rows="3" cols="60"></textarea></div>
+	<input id="sb" type="button" value="哔哔">
+
+	<!-- <form action="/add_msg" method="post">
+		<div><textarea name="content" rows="3" cols="60"></textarea></div>
+		<input type="submit" value="哔哔">
+	</form> -->
+
+	<script type="text/javascript" src="assets/js/app.js"></script>
+
+	<a href="{{ url|safe }}">{{ url_linktext }}</a>
+
+	<script type="text/javascript">
+	{% if logged %}
+	doubi_init_app()
+	{% endif %}
+	</script>
+
+	
+
+</body>
+</html>

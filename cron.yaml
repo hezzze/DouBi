@@ -1,0 +1,4 @@
+cron:
+- description: delete expired channels
+  url: /tasks/clean
+  schedule: every 1 hours
