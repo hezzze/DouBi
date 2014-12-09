@@ -1,31 +1,73 @@
+<!doctype html>
 <html>
+
 <head>
-	<script src='/_ah/channel/jsapi'></script>
-	<script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+    <link rel="import" href="webcomponent/github-card.html">
+    <title>Socket.IO chat</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font: 13px Helvetica, Arial;
+    }
+    form {
+        background: #000;
+        padding: 3px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    form input {
+        border: 0;
+        padding: 10px;
+        width: 90%;
+        margin-right: .5%;
+    }
+    form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+    }
+    #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    #messages li {
+        padding: 5px 10px;
+    }
+    #messages li:nth-child(odd) {
+        background-color: #eee;
+    }
+    </style>
+
 </head>
+
 <body>
+    <ul id="messages"></ul>
+    <form action="">
+        <input id="m" autocomplete="off" />
+        <button>Send</button>
+    </form>
+    <github-card></github-card>
+    <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+    var socket = io();
+    $('form').submit(function() {
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
 
-	<p>{{my_email}}</p>
-
-	<div><textarea id="content" rows="3" cols="60"></textarea></div>
-	<input id="sb" type="button" value="哔哔">
-
-	<!-- <form action="/add_msg" method="post">
-		<div><textarea name="content" rows="3" cols="60"></textarea></div>
-		<input type="submit" value="哔哔">
-	</form> -->
-
-	<script type="text/javascript" src="assets/js/app.js"></script>
-
-	<a href="{{ url|safe }}">{{ url_linktext }}</a>
-
-	<script type="text/javascript">
-	{% if logged %}
-	doubi_init_app()
-	{% endif %}
-	</script>
-
-	
-
+    socket.on('chat message', function(msg) {
+      $('#messages').append($('<li>').text(msg));
+    });
+    </script>
 </body>
+
 </html>
