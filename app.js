@@ -7,8 +7,6 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-/* Include the app engine handlers to respond to start, stop, and health checks. */
-app.use(require('./lib/appengine-handlers'));
 app.use(express.static('assets'));
 
 app.get('/', function(req,res) {
