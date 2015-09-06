@@ -1,0 +1,21 @@
+{
+  "name": "DouBi",
+  "version": "0.0.1",
+  "homepage": "https://github.com/hezzze/DouBi",
+  "authors": [
+    "hezzze <hezzze@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~1.0.6",
+    "webcomponentsjs": "~0.7.6"
+  }
+}
