@@ -2,10 +2,12 @@
 <html>
 
 <head>
+    <script src="libs/webcomponentsjs/webcomponents.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="import" href="web_components/github-card/github-card.html">
+    <link rel="import" href="web_components/hello-world.html">
     <title>Socket.IO chat</title>
     <link rel="stylesheet" href="css/main.css"/>
-
 </head>
 
 <body>
@@ -14,20 +16,21 @@
         <input id="m" autocomplete="off" />
         <button>Send</button>
     </form>
-    <github-card user="hezzze" github-logo-url="img/github.png" spinner-url="img/spinner.gif" ></github-card>
+    <hello-world who="haha!"></hello-world>
+    <!-- <github-card user="hezzze"></github-card> -->
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script type="text/javascript">
-    var socket = io();
-    $('form').submit(function() {
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
+        var socket = io();
+        $('form').submit(function() {
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
 
-    socket.on('chat message', function(msg) {
-      $('#messages').append($('<li>').text(msg));
-    });
+        socket.on('chat message', function(msg) {
+          $('#messages').append($('<li>').text(msg));
+        });
     </script>
 </body>
 
